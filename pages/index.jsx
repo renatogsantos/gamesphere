@@ -72,6 +72,8 @@ export default function Home({ games }) {
                       img={item.thumbnail}
                       title={item.title}
                       description={item.short_description}
+                      link1={item.game_url}
+                      link2={item.freetogame_profile_url}
                     />
                   </Col>
                 );
