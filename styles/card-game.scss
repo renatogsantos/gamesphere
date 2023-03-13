@@ -1,0 +1,30 @@
+.card-game {
+  position: relative;
+  background: rgba(15, 15, 33, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 20px 30px rgba(9, 7, 33, 0.7);
+  backdrop-filter: blur(24px);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.card-game-tag {
+  background: $main-gradient;
+  border-radius: 10px;
+  text-align: center;
+  padding: 8px 16px;
+}
+
+.divisor {
+  background: $main-gradient;
+  border-radius: 10px;
+  height: 4px;
+  width: 20%;
+  margin: 16px 0;
+}
+
+.card-game-description {
+  font-size: 12px;
+  line-height: 14px;
+  color: #ccc;
+}
