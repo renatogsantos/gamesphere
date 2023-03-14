@@ -7,7 +7,6 @@ import { Col, Container, Row } from "react-bootstrap";
 
 export default function Home({ games }) {
   const [searchValue, setSearchValue] = useState("");
-  //const [games, setGames] = useState([]);
 
   const listSearch = games.filter((item) =>
     item.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -101,7 +100,8 @@ export async function getServerSideProps() {
     const games = response.data;
     return { props: { games } };
   } catch (error) {
-    console.error(error);
+    const response = await axios.request(options);
+    const games = response.data;
     return { props: { games: [] } };
   }
 }
