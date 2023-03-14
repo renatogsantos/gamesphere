@@ -18,8 +18,8 @@ export default function Home() {
       method: "GET",
       url: "https://free-to-play-games-database.p.rapidapi.com/api/games",
       headers: {
-        "X-RapidAPI-Key": process.env.X_KEY,
-        "X-RapidAPI-Host": process.env.X_HOST,
+        "X-RapidAPI-Key": process.env.X_RAPIDAPI_KEY,
+        "X-RapidAPI-Host": process.env.X_RAPIDAPI_HOST,
       },
     };
 
