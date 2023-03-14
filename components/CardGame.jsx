@@ -20,8 +20,11 @@ export default function CardGame({ img, title, description, link1, link2 }) {
         </div>
         <div className="divisor"></div>
         <p className="card-game-description">{description}</p>
-        <ButtonMain link={link1} title="Download" />
-        <ButtonMain link={link2} title="Site" />
+        <div className="d-flex align-items-center justify-content-between">
+          <ButtonMain link={link1} title="Download" />
+
+          <ButtonMain link={link2} title="Site" />
+        </div>
       </div>
     </div>
   );
