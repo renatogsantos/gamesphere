@@ -105,24 +105,3 @@ export default function Home() {
     </>
   );
 }
-
-export async function getServerSideProps() {
-  const options = {
-    method: "GET",
-    url: "https://free-to-play-games-database.p.rapidapi.com/api/games",
-    headers: {
-      "X-RapidAPI-Key": process.env.X_KEY,
-      "X-RapidAPI-Host": process.env.X_HOST,
-    },
-  };
-
-  try {
-    const response = await axios.request(options);
-    const games = response.data;
-    return { props: { games } };
-  } catch (error) {
-    const response = await axios.request(options);
-    const games = response.data;
-    return { props: { games: [] } };
-  }
-}
