@@ -5,12 +5,33 @@ import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
-export default function Home({ games }) {
+export default function Home() {
   const [searchValue, setSearchValue] = useState("");
+  const [gamesList, setGamesList] = useState([]);
 
-  const listSearch = games.filter((item) =>
+  const listSearch = gamesList.filter((item) =>
     item.title.toLowerCase().includes(searchValue.toLowerCase())
   );
+
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      url: "https://free-to-play-games-database.p.rapidapi.com/api/games",
+      headers: {
+        "X-RapidAPI-Key": process.env.X_KEY,
+        "X-RapidAPI-Host": process.env.X_HOST,
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        setGamesList(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <>
