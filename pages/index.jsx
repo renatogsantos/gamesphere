@@ -2,17 +2,38 @@ import CardGame from "../components/CardGame";
 import { GameController } from "@phosphor-icons/react";
 import axios from "axios";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
-export default function Home({ games }) {
+export default function Home() {
   const [searchValue, setSearchValue] = useState("");
+  const [games, setGames] = useState([]);
 
-  const listSearch = games.filter((item) =>
-    item.title.toLowerCase().includes(searchValue.toLowerCase())
-  );
+  const listSearch = useMemo(() => {
+    return games.filter((item) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  }, [games]);
 
-  console.log(games);
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      url: "https://free-to-play-games-database.p.rapidapi.com/api/games",
+      headers: {
+        "X-RapidAPI-Key": "d373269286msh95a010d237c165dp10cfc9jsn5ab8cd674519",
+        "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        setGames(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <>
@@ -87,22 +108,22 @@ export default function Home({ games }) {
   );
 }
 
-export async function getServerSideProps() {
-  const options = {
-    method: "GET",
-    url: "https://free-to-play-games-database.p.rapidapi.com/api/games",
-    headers: {
-      "X-RapidAPI-Key": "d373269286msh95a010d237c165dp10cfc9jsn5ab8cd674519",
-      "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
-    },
-  };
+// export async function getServerSideProps() {
+//   const options = {
+//     method: "GET",
+//     url: "https://free-to-play-games-database.p.rapidapi.com/api/games",
+//     headers: {
+//       "X-RapidAPI-Key": "d373269286msh95a010d237c165dp10cfc9jsn5ab8cd674519",
+//       "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+//     },
+//   };
 
-  try {
-    const response = await axios.request(options);
-    const games = response.data;
-    return { props: { games } };
-  } catch (error) {
-    console.error(error);
-    return { props: { games: [] } };
-  }
-}
+//   try {
+//     const response = await axios.request(options);
+//     const games = response.data;
+//     return { props: { games } };
+//   } catch (error) {
+//     console.error(error);
+//     return { props: { games: [] } };
+//   }
+// }
