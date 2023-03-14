@@ -1,0 +1,22 @@
+
+.input-main-box {
+  position: relative;
+}
+
+.input-main {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  background: rgba(15, 15, 33, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0px 0px 50px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(25px);
+  border-radius: 10px;
+  padding: 10px;
+  transition: 0.3s ease-in-out;
+  color: $light;
+  &:focus {
+    outline: 2px solid $color2;
+  }
+}

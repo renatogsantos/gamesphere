@@ -1,38 +1,30 @@
 import CardGame from "../components/CardGame";
-import { GameController } from "@phosphor-icons/react";
+import { GameController, MagicWand } from "@phosphor-icons/react";
 import axios from "axios";
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { gamesList } from "../config/games";
+import ButtonMain from "../components/ButtonMain";
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState("");
-  //const [gamesList, setGamesList] = useState([]);
 
   const listSearch = gamesList.filter((item) =>
     item.title.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  // useEffect(() => {
-  //   const options = {
-  //     method: "GET",
-  //     url: "https://free-to-play-games-database.p.rapidapi.com/api/games",
-  //     headers: {
-  //       "X-RapidAPI-Key": process.env.X_RAPIDAPI_KEY,
-  //       "X-RapidAPI-Host": process.env.X_RAPIDAPI_HOST,
-  //     },
-  //   };
-
-  //   axios
-  //     .request(options)
-  //     .then(function (response) {
-  //       setGamesList(response.data);
-  //     })
-  //     .catch(function (error) {
-  //       console.error(error);
-  //     });
-  // }, []);
+  const ordemAlfa = (a, b) => {
+    let nomeA = a.title.toLowerCase();
+    let nomeB = b.title.toLowerCase();
+    if (nomeA > nomeB) {
+      return 1;
+    }
+    if (nomeA < nomeB) {
+      return -1;
+    }
+    return 0;
+  };
 
   return (
     <>
@@ -44,8 +36,8 @@ export default function Home() {
       </Head>
 
       <section>
-        <Container fluid className="hero-1">
-          <Container>
+        <Container fluid className="hero-1 py-5">
+          <Container className="py-5">
             <Row className="d-flex align-items-center g-2">
               <Col sm="12" lg="6">
                 <div className="position-relative">
@@ -75,7 +67,7 @@ export default function Home() {
                   </p>
                 </div>
               </Col>
-              <Col sm="12" lg="6" className="d-none d-lg-flex">
+              <Col sm="12" lg="6">
                 <div className="d-flex align-items-center justify-content-center w-100">
                   <img
                     draggable={false}
@@ -93,38 +85,67 @@ export default function Home() {
       <section>
         <Container fluid className="py-5">
           <Container>
-            <div className="input-main-box py-5">
-              <input
-                className="input-main"
-                type="text"
-                placeholder="Faça sua busca..."
-                onChange={(e) => {
-                  setSearchValue(e.target.value);
-                }}
-              />
-            </div>
+            <Row className="d-flex align-items-center pb-5">
+              <Col sm="12" lg="6" className="py-3">
+                <h4>Encontre seu jogo aqui:</h4>
+              </Col>
+              <Col sm="12" lg="6">
+                <div className="d-flex justify-content-between">
+                  <input
+                    className="input-main"
+                    type="text"
+                    placeholder="Faça sua busca..."
+                    onChange={(e) => {
+                      setSearchValue(e.target.value);
+                    }}
+                  />
+                  <ButtonMain
+                    type="submit"
+                    title="Encontre"
+                    variant="ms-3"
+                    icon={<MagicWand size={24} weight="duotone" />}
+                  />
+                </div>
+              </Col>
+            </Row>
           </Container>
-          <Row className="d-flex align-items-stretch justify-content-center g-4">
-            {listSearch ? (
-              listSearch.slice(0, 12).map((item) => {
-                return (
-                  <Col key={item.id} sm="12" md="6" lg="4" xl="3" xxl="2">
-                    <CardGame
-                      img={item.thumbnail}
-                      title={item.title}
-                      description={item.short_description}
-                      link1={item.game_url}
-                      link2={item.freetogame_profile_url}
-                    />
-                  </Col>
-                );
-              })
-            ) : (
-              <div className="d-flex align-items-center justify-content-center py-5">
-                <p>Lista vazia...</p>
-              </div>
-            )}
-          </Row>
+          <Container fluid className="p-4">
+            <Row className="g-4">
+              {listSearch ? (
+                listSearch
+                  .sort(ordemAlfa)
+                  .slice(0, 12)
+                  .map((item) => {
+                    return (
+                      <Col
+                        key={item.id}
+                        sm="12"
+                        md="6"
+                        lg="4"
+                        xl="3"
+                        xxl="2"
+                        className="d-flex align-items-stretch justify-content-center"
+                      >
+                        <CardGame
+                          img={item.thumbnail}
+                          title={item.title}
+                          description={item.short_description}
+                          link1={item.game_url}
+                          link2={item.freetogame_profile_url}
+                          genero={item.genre}
+                          plataforma={item.platform}
+                          lancamento={item.release_date}
+                        />
+                      </Col>
+                    );
+                  })
+              ) : (
+                <div className="d-flex align-items-center justify-content-center py-5">
+                  <p>Lista vazia...</p>
+                </div>
+              )}
+            </Row>
+          </Container>
         </Container>
       </section>
     </>

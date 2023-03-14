@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -7,10 +8,10 @@ $grid-breakpoints: (
   xxl: 2024px,
 );
 @import "~bootstrap/scss/bootstrap";
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "./colors.scss";
 @import "./typography.scss";
 @import "./card-game.scss";
+@import "./input.scss";
 @import "./button-main.scss";
 
 * {
@@ -21,37 +22,17 @@ $grid-breakpoints: (
 
 body {
   font-family: "Montserrat", sans-serif;
-  background: url("/bg.jpg"), $background;
+  background: url("/bg-circle-gradient.png"), url("/bg.jpg"), $background;
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  background-attachment: scroll, fixed;
   color: $light;
 }
 
 .hero-1 {
   display: flex;
   align-items: center;
-  height: 80vh;
-}
-
-.input-main-box {
-  position: relative;
-}
-
-.input-main {
-  background: rgba(15, 15, 33, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0px 0px 50px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(25px);
-  border-radius: 10px;
-  padding: 10px;
-  width: 100%;
-  transition: 0.3s ease-in-out;
-  color: $light;
-  &:focus {
-    outline: 2px solid $color2;
-  }
 }
 
 .vector-play {
