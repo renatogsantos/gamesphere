@@ -2,7 +2,7 @@ h1 {
   font-family: "Montserrat";
   font-style: italic;
   font-weight: 800;
-  font-size: clamp(32px, 5vw, 64px);
+  font-size: clamp(42px, 5vw, 64px);
   line-height: clamp(32px, 5vw, 96px);
   padding: 0 8px;
   background: $main-gradient;
@@ -31,4 +31,8 @@ h4 {
 p {
   margin: 0;
   padding: 0;
+}
+
+.f-12 {
+  font-size: 12px;
 }
