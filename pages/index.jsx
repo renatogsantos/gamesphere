@@ -1,14 +1,23 @@
 import CardGame from "../components/CardGame";
-import { GameController, MagicWand } from "@phosphor-icons/react";
+import { GameController, MagicWand, Sword } from "@phosphor-icons/react";
 import axios from "axios";
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { gamesList } from "../config/games";
 import ButtonMain from "../components/ButtonMain";
+import { useForm } from "react-hook-form";
+import { Notify } from "notiflix/build/notiflix-notify-aio";
 
 export default function Home() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
   const [searchValue, setSearchValue] = useState("");
+  const [gameFound, setGameFound] = useState("");
 
   const listSearch = gamesList.filter((item) =>
     item.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -24,6 +33,12 @@ export default function Home() {
       return -1;
     }
     return 0;
+  };
+
+  const onSubmit = (data) => {
+    if (data) {
+      setSearchValue(data.search);
+    }
   };
 
   return (
@@ -43,9 +58,9 @@ export default function Home() {
                 <div className="position-relative">
                   <img
                     draggable={false}
-                    className="vector-play"
+                    className="vector-play rotate-center"
                     src="/vector-play.svg"
-                    alt=""
+                    alt="vetor"
                   />
                   <h1>GAMESPHERE</h1>
                   <h2>
@@ -67,7 +82,7 @@ export default function Home() {
                   </p>
                 </div>
               </Col>
-              <Col sm="12" lg="6">
+              <Col sm="12" lg="6" className="position-relative">
                 <div className="d-flex align-items-center justify-content-center w-100">
                   <img
                     draggable={false}
@@ -90,22 +105,26 @@ export default function Home() {
                 <h4>Encontre seu jogo aqui:</h4>
               </Col>
               <Col sm="12" lg="6">
-                <div className="d-flex justify-content-between">
-                  <input
-                    className="input-main"
-                    type="text"
-                    placeholder="Faça sua busca..."
-                    onChange={(e) => {
-                      setSearchValue(e.target.value);
-                    }}
-                  />
-                  <ButtonMain
-                    type="submit"
-                    title="Encontre"
-                    variant="ms-3"
-                    icon={<MagicWand size={24} weight="duotone" />}
-                  />
-                </div>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className="d-flex justify-content-between">
+                    <input
+                      className="input-main"
+                      type="search"
+                      placeholder="Faça sua busca..."
+                      name="search"
+                      {...register("search")}
+                      onChange={(e) => {
+                        e.target.value < 1 && setSearchValue("");
+                      }}
+                    />
+                    <ButtonMain
+                      type="submit"
+                      title=" Search"
+                      variant="ms-3"
+                      icon={<Sword size={24} weight="duotone" />}
+                    />
+                  </div>
+                </form>
               </Col>
             </Row>
           </Container>

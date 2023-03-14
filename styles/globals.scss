@@ -8,6 +8,7 @@ $grid-breakpoints: (
   xxl: 2024px,
 );
 @import "~bootstrap/scss/bootstrap";
+@import "./animations.scss";
 @import "./colors.scss";
 @import "./typography.scss";
 @import "./card-game.scss";
