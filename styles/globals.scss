@@ -1,8 +1,17 @@
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 2024px,
+);
 @import "~bootstrap/scss/bootstrap";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "./colors.scss";
 @import "./typography.scss";
 @import "./card-game.scss";
+@import "./button-main.scss";
 
 * {
   margin: 0;
@@ -12,7 +21,11 @@
 
 body {
   font-family: "Montserrat", sans-serif;
-  background: $background;
+  background: url("/bg.jpg"), $background;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   color: $light;
 }
 

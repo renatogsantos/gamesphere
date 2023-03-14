@@ -1,0 +1,12 @@
+.button-main {
+  font-weight: 600;
+  border: none;
+  text-decoration: none;
+  background: $main-gradient;
+  color: $light;
+  padding: 10px 16px;
+  border-radius: 10px;
+  &:hover {
+    color: $light;    
+  }
+}
