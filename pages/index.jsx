@@ -53,6 +53,7 @@ export default function Home() {
                     <GameController size={32} weight="duotone" /> Baixe Jogos
                     Gratuitos
                   </h2>
+                  <small className="text-end">O jogo que você procura está aqui!</small>
                   <div className="input-main-box pt-5">
                     <input
                       className="input-main"
