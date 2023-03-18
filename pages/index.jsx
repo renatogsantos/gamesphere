@@ -41,8 +41,14 @@ export default function Home() {
   const onSubmit = (data) => {
     if (data) {
       setSearchValue(data.search);
-      setPageDown(0)
-      setPageUp(6)
+      setPageDown(0);
+      setPageUp(6);
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "ArrowRight") {
+      alert("direita");
     }
   };
 
@@ -107,7 +113,10 @@ export default function Home() {
           <Container>
             <Row className="d-flex align-items-center pb-5">
               <Col sm="12" lg="6" className="py-3">
-                <h4>Encontre seu jogo aqui:</h4>
+                <h4>
+                  <GameController size={32} weight="duotone" /> Encontre seu
+                  jogo aqui:
+                </h4>
               </Col>
               <Col sm="12" lg="6">
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -118,9 +127,6 @@ export default function Home() {
                       placeholder="Faça sua busca..."
                       name="search"
                       {...register("search")}
-                      onChange={(e) => {
-                        e.target.value < 1 && setSearchValue("");
-                      }}
                     />
                     <ButtonMain
                       type="submit"
