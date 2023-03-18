@@ -7,7 +7,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { gamesList } from "../config/games";
 import ButtonMain from "../components/ButtonMain";
 import { useForm } from "react-hook-form";
-import { Notify } from "notiflix/build/notiflix-notify-aio";
+import ButtonPaginate from "../components/ButtonPaginate";
 
 export default function Home() {
   const {
@@ -18,6 +18,9 @@ export default function Home() {
   } = useForm();
   const [searchValue, setSearchValue] = useState("");
   const [gameFound, setGameFound] = useState("");
+
+  const [pageDown, setPageDown] = useState(0);
+  const [pageUp, setPageUp] = useState(6);
 
   const listSearch = gamesList.filter((item) =>
     item.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -128,21 +131,19 @@ export default function Home() {
               </Col>
             </Row>
           </Container>
-          <Container fluid className="p-4">
+          <Container className="p-4">
             <Row className="g-4">
               {listSearch ? (
                 listSearch
                   .sort(ordemAlfa)
-                  .slice(0, 12)
+                  .slice(pageDown, pageUp)
                   .map((item) => {
                     return (
                       <Col
                         key={item.id}
                         sm="12"
-                        md="6"
-                        lg="4"
-                        xl="3"
-                        xxl="2"
+                        lg="6"
+                        xl="4"
                         className="d-flex align-items-stretch justify-content-center"
                       >
                         <CardGame
@@ -163,6 +164,26 @@ export default function Home() {
                   <p>Lista vazia...</p>
                 </div>
               )}
+              <Col sm="12">
+                <div className="d-flex align-items-center justify-content-between">
+                  <ButtonPaginate
+                    side={true}
+                    onClick={() => {
+                      setPageUp(pageUp - 6);
+                      setPageDown(pageDown - 6);
+                    }}
+                    variant={pageDown > 0 ? "" : "disabled"}
+                  />
+                  <ButtonPaginate
+                    side={false}
+                    onClick={() => {
+                      setPageUp(pageUp + 6);
+                      setPageDown(pageDown + 6);
+                    }}
+                    variant={pageUp < listSearch.length ? "" : "disabled"}
+                  />
+                </div>
+              </Col>
             </Row>
           </Container>
         </Container>
