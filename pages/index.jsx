@@ -41,6 +41,8 @@ export default function Home() {
   const onSubmit = (data) => {
     if (data) {
       setSearchValue(data.search);
+      setPageDown(0)
+      setPageUp(6)
     }
   };
 
